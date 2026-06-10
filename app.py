@@ -1,5 +1,6 @@
 import os
 import shutil
+from pathlib import Path
 
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QPixmap
@@ -65,8 +66,10 @@ class MainWindow(QMainWindow):
         layout.addLayout(echo_layout)
 
         # image from file selection
+        builtin_dir = Path(__file__).parent.absolute()
+        placeholder_path = builtin_dir / "placeholder.jpg"
         self.image_preview = QLabel()
-        self.original_pixmap = QPixmap("placeholder.jpg")
+        self.original_pixmap = QPixmap(str(placeholder_path))
         layout.addWidget(self.image_preview)
 
         save_button = QPushButton("export image")
