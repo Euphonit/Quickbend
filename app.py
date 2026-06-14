@@ -2,6 +2,7 @@ import os
 import shutil
 from pathlib import Path
 
+from PIL import Image
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import (
@@ -128,7 +129,8 @@ class MainWindow(QMainWindow):
     def export_handler(self):
         (save_file_path) = save_file()
         if save_file_path:
-            shutil.move("/tmp/mash.bmp", save_file_path)
+            png_image = Image.open("/tmp/mash.bmp")
+            png_image.save(save_file_path)
 
 
 def cleanup():

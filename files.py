@@ -27,7 +27,7 @@ def browse_file():
 
 def save_file():
     save_path, _ = QFileDialog.getSaveFileName(
-        parent=None, caption="Save file:", filter="Bitmap Files (*.bmp)"
+        parent=None, caption="Save file:", filter="PNG Images (*.png)"
     )
     if save_path:
         return save_path
