@@ -27,6 +27,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         # main class
         super().__init__()
+        self.current_file_path = None
 
         self.setWindowTitle("My App")
         layout = QVBoxLayout()
@@ -38,6 +39,7 @@ class MainWindow(QMainWindow):
 
         self.encoding_box = QComboBox()
         self.encoding_box.addItems(["alaw", "ulaw", "adpcm"])
+        self.encoding_box.currentTextChanged.connect(self.Render)
         self.encoding_box_label = QLabel("Select Encoding:")
         encoding_layout = QHBoxLayout()
 
@@ -47,6 +49,7 @@ class MainWindow(QMainWindow):
 
         self.xor_box = QComboBox()
         self.xor_box.addItems(["Off", "On"])
+        self.xor_box.currentTextChanged.connect(self.Render)
         self.xor_box_label = QLabel("Xor Mixing:")
         xor_layout = QHBoxLayout()
 
@@ -57,6 +60,7 @@ class MainWindow(QMainWindow):
         self.echo_time = QLineEdit()
         self.echo_time.setPlaceholderText("Enter a Number (Decimals Accepted)")
         self.echo_time.setInputMask("00.00;_")
+        self.echo_time.editingFinished.connect(self.Render)
         self.echo_time_label = QLabel("Echo Time (Leave blank for no echo):")
         echo_layout = QHBoxLayout()
 
@@ -96,25 +100,33 @@ class MainWindow(QMainWindow):
     # loads image from file dialog into pixmap of QLabel
     def LoadNewImage(self):
         path = browse_file()
-        # gets paths for program cleanup later.
-        global cleanup_paths
-        cleanup_paths = path
-        if self.xor_box.currentText() == "On":
-            xor_flag = True
-        else:
-            xor_flag = False
         if path:
+            self.current_file_path = path
+
+            global cleanup_paths
+            if path not in cleanup_paths:
+                cleanup_paths.append(path)
+
+        self.Render()
+
+    def Render(self):
+        if self.current_file_path:
+            if self.xor_box.currentText() == "On":
+                xor_flag = True
+            else:
+                xor_flag = False
             try:
                 delay_time = float(self.echo_time.text())
             except ValueError:
                 delay_time = 0
             synced_files = databend(
-                path,
+                self.current_file_path,
                 "/tmp/mash.bmp",
                 encoding=self.encoding_box.currentText(),
                 use_xor=xor_flag,
                 delay_time=delay_time,
             )
+            global cleanup_paths
             if synced_files:
                 cleanup_paths.extend(synced_files)
             self.original_pixmap = QPixmap("/tmp/mash.bmp")
@@ -135,9 +147,15 @@ class MainWindow(QMainWindow):
 def cleanup():
     if os.path.exists("/tmp/mash.bmp"):
         os.remove("/tmp/mash.bmp")
-    for file in cleanup_paths:
-        if os.path.exists(file):
-            os.remove(file)
+
+    for item in cleanup_paths:
+        if isinstance(item, (list, tuple)):
+            for sub_item in item:
+                if isinstance(sub_item, str) and os.path.exists(sub_item):
+                    os.remove(sub_item)
+
+        elif isinstance(item, str) and os.path.exists(item):
+            os.remove(item)
 
 
 # open and show window
