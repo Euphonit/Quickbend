@@ -1,0 +1,22 @@
+[Desktop Entry]
+
+# The type as listed above
+Type=Application
+
+# The version of the desktop entry specification to which this file conforms
+Version=1.1.0
+
+# The name of the application
+Name=Quickbend
+
+# A comment which can/will be used as a tooltip
+Comment=Glitch art program
+
+# The path to the folder in which the executable is run
+Exec=/usr/bin/Quickbend
+
+# The name of the icon that will be used to display this entry
+Icon=Quickbend
+
+# Describes the categories in which this entry should be shown
+Categories=Art;Utility
