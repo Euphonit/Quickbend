@@ -2,7 +2,11 @@
 
 **Quickbend** is a tool for creating art via databending with images. It uses interpreting bmp files as logarithmic audio encoding schemes (a-law/u-law/adpcm) and then reconverting those back to bmp to create warped and glitched images.
 
-If your on arch linux there is a native package available in [releases](https://github.com/Euphonit/Quickbend/releases):
+<img width="1900" height="1014" alt="image" src="https://github.com/user-attachments/assets/ba0deb4a-868a-4f8a-b66f-a7fd39fce6d7" />
+
+## Install
+
+If you're on arch linux there is a native package available in [releases](https://github.com/Euphonit/Quickbend/releases):
 
 To install on other platforms run:
 
