@@ -16,4 +16,4 @@ To install on other platforms run:
 
 `pip install Quickbend` in a virtual environment.
 
-When installed through pip the program must be launched from the terminal.
+When installed through pip the program must be launched from the terminal, and there is no freedesktop integration.
