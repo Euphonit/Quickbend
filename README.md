@@ -6,7 +6,7 @@
 
 ## Install
 
-If you're on arch linux or debian 13 (trixie) there are native packages available in [releases](https://github.com/Euphonit/Quickbend/releases):
+If you're on arch linux, debian 13 (trixie), or freebsd there is a native package available in [releases](https://github.com/Euphonit/Quickbend/releases):
 
 To install on other platforms run:
 
