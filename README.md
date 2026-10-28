@@ -1,3 +1,6 @@
+# This repo is archived!
+The new location is at [git.danielcrutti.com](https://git.danielcrutti.com/cgit.cgi/quickbend/)
+
 # Quickbend
 
 **Quickbend** is a tool for creating art via databending with images. It uses interpreting bmp files as logarithmic audio encoding schemes (a-law/u-law/adpcm) and then reconverting those back to bmp to create warped and glitched images.
